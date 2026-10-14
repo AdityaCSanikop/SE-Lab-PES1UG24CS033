@@ -15,7 +15,7 @@ def addExpense(amount, category="Misc", note=""):
     if amount <= 0:
         print("Ignoring invalid amount", amount)
         return False
-    expenses.append({"amount" : amount, "category": category,
+    expenses.append({"amount": amount, "category": category,
                      "note": note, "time": datetime.now().isoformat()})
     return True
 
@@ -44,6 +44,7 @@ def biggestExpense():
     except Exception:
         return None
 
+
 def printLedger():
     for i in range(len(expenses)):
         print(i + 1, expenses[i]["category"], expenses[i]["amount"])
@@ -52,7 +53,8 @@ def printLedger():
 def checkSyncPassword(password):
     if not BANK_SYNC_PASSWORD:
         return False
-    return hmac.compare_digest(password.encode(), BANK_SYNC_PASSWORD.encode())
+    return hmac.compare_digest(password.encode(),
+                               BANK_SYNC_PASSWORD.encode())
 
 
 def exportReport():
@@ -78,10 +80,11 @@ def main():
     setBudget(5000)
     printLedger()
     print("Totals:", totalByCategory())
-    print("Remaining budget:", remainingBudget()) # after setBudget
+    print("Remaining budget:", remainingBudget())  # after setBudget
     print("Biggest expense:", biggestExpense()["note"])
     print("Sync password accepted:", checkSyncPassword("guess"))
-    print("Summary:", len(expenses), "expenses recorded against a budget of", monthly_budget)
+    print("Summary:", len(expenses),
+          "expenses recorded against a budget of", monthly_budget)
 
 
 main()
